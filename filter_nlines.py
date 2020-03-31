@@ -27,14 +27,15 @@ def process_input(input_iter, arguments):
         lines = input_iter
 
     if arguments.from_start:
-        counter = 0
+        lines = itertools.islice(lines, 0, None, arguments.n)
     else:
-        counter = 1
+        lines = itertools.islice(lines, arguments.n - 1, None, arguments.n)
 
     for line in lines:
-        if counter % arguments.n == 0:
+        if line[-1] == "\n":
+            print (line[:-1])
+        else:
             print (line)
-        counter += 1
 
 def process(parse_result):
     if not len(parse_result.files):
